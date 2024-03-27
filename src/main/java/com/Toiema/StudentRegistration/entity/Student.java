@@ -28,10 +28,4 @@ public class Student {
     private String email;
 
 
-    public Student(String leslie, String andrews, String s) {
-
-        this.firstName=leslie;
-        this.lastName=andrews;
-        this.email=s;
-    }
 }

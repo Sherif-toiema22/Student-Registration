@@ -6,9 +6,7 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,8 +48,23 @@ public class studentController {
 
         List<Student> theStudents=studentService.findAll();
         // add to the spring model
-        theModel.addAttribute("students", theStudents);
+        theModel.addAttribute("student", theStudents);
 
+        return "list-students";
+    }
+    @GetMapping("/showFormForAdd")
+    public String showFormForAdd(Model theModel) {
+
+        // create model attribute to bind form data
+        Student theStudent = new Student();
+
+        theModel.addAttribute("student", theStudent);
+
+        return "student-form";
+    }
+    @PostMapping("/save")
+    public String addStudent(@ModelAttribute("student")  Student student) {
+        studentService.save(student);
         return "list-students";
     }
 }

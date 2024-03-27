@@ -14,9 +14,13 @@
 
 <body>
 
+<a th:href="@{/students/showFormForAdd}"
+   class="btn btn-primary btn-sm mb-3">
+	Add Employee
+</a>
 <div class="container">
 
-	<h3>Employee Directory</h3>
+	<h3>Student Directory</h3>
 	<hr>
 
 	<table class="table table-bordered table-striped">
@@ -29,7 +33,7 @@
 		</thead>
 		
 		<tbody>
-			<tr th:each="tempStudent : ${students}">
+			<tr th:each="tempStudent : ${student}">
 			
 				<td th:text="${tempStudent.firstName}" />
 				<td th:text="${tempStudent.lastName}" />
