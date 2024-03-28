@@ -38,7 +38,7 @@ public class studentController {
 //        theStudent.add(emp1);
 //    }
 
-    @GetMapping("/")
+    @GetMapping
     public String hello(){
         return "hi";
     }
@@ -64,6 +64,7 @@ public class studentController {
     }
     @PostMapping("/save")
     public String addStudent(@ModelAttribute("student")  Student student) {
+        student.setId(0L);
         studentService.save(student);
         return "list-students";
     }
