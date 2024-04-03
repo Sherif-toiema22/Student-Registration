@@ -2,16 +2,16 @@ package com.Toiema.StudentRegistration.controller;
 
 import com.Toiema.StudentRegistration.entity.Student;
 import com.Toiema.StudentRegistration.service.studentService;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("students")
 public class studentController {
 
@@ -21,8 +21,6 @@ public class studentController {
     studentController(studentService thestudentService){
         this.studentService=thestudentService;
     }
-
-    private List<Student> theStudent;
 
 //
 //    @PostConstruct
@@ -37,12 +35,10 @@ public class studentController {
 //        // add to the list
 //        theStudent.add(emp1);
 //    }
-
-    @GetMapping
-    public String hello(){
-        return "hi";
+    @GetMapping("/lists")
+    public List<Student> listObjectStudent() {
+        return studentService.findAll();
     }
-
     @GetMapping("/list")
     public String listStudents(Model theModel) {
 
@@ -62,10 +58,44 @@ public class studentController {
 
         return "student-form";
     }
+//    @PostMapping("/save")
+//    public String addStudent(@ModelAttribute("student")  Student student) {
+////        student.setId(0L);
+//        studentService.save(student);
+//        return "list-students";
+//    }
     @PostMapping("/save")
-    public String addStudent(@ModelAttribute("student")  Student student) {
-        student.setId(0L);
-        studentService.save(student);
-        return "list-students";
+    public Student addStudent(@RequestBody  Student student) {
+        student.setId(0);
+
+        return studentService.save(student);
     }
+
+    @PutMapping("/update")
+    public Student updateStudent(@RequestBody Student theStudent) {
+
+        Student dbStudent = studentService.save(theStudent);
+
+        return dbStudent;
+    }
+
+    // add mapping for DELETE /employees/{employeeId} - delete employee
+
+    @DeleteMapping("/delete/{studentId}")
+    public String deleteStudent(@PathVariable int studentId) {
+
+        Optional<Student> tempStudent = studentService.findById(studentId);
+
+        // throw exception if null
+
+        if (tempStudent == null) {
+            throw new RuntimeException("Employee id not found - " + studentId);
+        }
+
+        studentService.delete(studentId);
+
+        return null;
+    }
+
+
 }

@@ -7,8 +7,8 @@ import java.util.Optional;
 public interface studentService {
 
     List<Student> findAll();
-    Optional<Student> findById(Long id);
-    void save(Student student);
-    void delete(Long id);
+    Optional<Student> findById(int id);
+    Student save(Student student);
+    void delete(int id);
 
 }

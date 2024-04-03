@@ -4,6 +4,8 @@ import com.Toiema.StudentRegistration.entity.Student;
 import com.Toiema.StudentRegistration.repository.studentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -23,17 +25,21 @@ public class studentServiceImp implements studentService{
     }
 
     @Override
-    public Optional<Student> findById(Long id) {
-        return studentRepository.findById(id);
+    public Optional<Student> findById(int id) {
+        return studentRepository.findById((long) id);
     }
 
+    @Transactional
     @Override
-    public void save(Student student) {
+    public Student save(Student student) {
         studentRepository.save(student);
+
+        return student;
     }
 
+    @Transactional
     @Override
-    public void delete(Long id) {
-        studentRepository.deleteById(id);
+    public void delete(int id) {
+        studentRepository.deleteById((long) id);
     }
 }

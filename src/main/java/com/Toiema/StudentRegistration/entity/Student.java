@@ -1,9 +1,6 @@
 package com.Toiema.StudentRegistration.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +12,8 @@ import lombok.Setter;
 public class Student {
     @Id
     @Column(name = "id", nullable = false)
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -26,6 +24,13 @@ public class Student {
 
     @Column(name = "email")
     private String email;
+
+//    public Student(int id, String firstName, String lastName, String email) {
+//        this.id = id;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.email = email;
+//    }
 
 
 }
