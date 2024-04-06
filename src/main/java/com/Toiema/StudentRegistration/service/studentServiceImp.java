@@ -26,7 +26,7 @@ public class studentServiceImp implements studentService{
 
     @Override
     public Optional<Student> findById(int id) {
-        return studentRepository.findById((long) id);
+        return studentRepository.findById( id);
     }
 
     @Transactional
@@ -40,6 +40,6 @@ public class studentServiceImp implements studentService{
     @Transactional
     @Override
     public void delete(int id) {
-        studentRepository.deleteById((long) id);
+        studentRepository.deleteById( id);
     }
 }

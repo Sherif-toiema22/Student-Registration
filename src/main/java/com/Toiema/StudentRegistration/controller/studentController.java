@@ -3,8 +3,6 @@ package com.Toiema.StudentRegistration.controller;
 import com.Toiema.StudentRegistration.entity.Student;
 import com.Toiema.StudentRegistration.service.studentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,30 +13,17 @@ import java.util.Optional;
 @RequestMapping("students")
 public class studentController {
 
-    private studentService studentService;
+    private final studentService studentService;
 
     @Autowired
     studentController(studentService thestudentService){
         this.studentService=thestudentService;
     }
 
-//
-//    @PostConstruct
-//    private void loadData() {
-//
-//        // create employees
-//        Student emp1 = new Student("Leslie", "Andrews", "leslie@luv2code.com");
-//
-//        // create the list
-//        theStudent = new ArrayList<>();
-//
-//        // add to the list
-//        theStudent.add(emp1);
+//@GetMapping("/lists")
+//    public List<Student> listObjectStudent() {
+//        return studentService.findAll();
 //    }
-    @GetMapping("/lists")
-    public List<Student> listObjectStudent() {
-        return studentService.findAll();
-    }
     @GetMapping("/list")
     public String listStudents(Model theModel) {
 
@@ -74,9 +59,7 @@ public class studentController {
     @PutMapping("/update")
     public Student updateStudent(@RequestBody Student theStudent) {
 
-        Student dbStudent = studentService.save(theStudent);
-
-        return dbStudent;
+        return studentService.save(theStudent);
     }
 
     // add mapping for DELETE /employees/{employeeId} - delete employee
@@ -88,7 +71,7 @@ public class studentController {
 
         // throw exception if null
 
-        if (tempStudent == null) {
+        if (tempStudent.isEmpty()) {
             throw new RuntimeException("Employee id not found - " + studentId);
         }
 
